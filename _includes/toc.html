@@ -47,6 +47,8 @@
             * base_url      (string) :   ''   - add a base url to the TOC links for when your TOC is on another page than the actual content
             * anchor_class  (string) :   ''   - add custom class(es) for each anchor element
             * skip_no_ids   (bool)   : false  - skip headers that do not have an `id` attribute
+            * title         (string) :   ''   - add a title above the table of contents
+            * title_tag     (string) :  'h2'  - the HTML tag to use for the title
 
         Output:
             An ordered or unordered list representing the table of contents of a markdown block. This snippet will only
@@ -174,9 +176,19 @@
             {% capture rootAttributes %}{{ rootAttributes }} id="{{ include.id }}"{% endcapture %}
         {% endif %}
 
+        {% if include.title %}
+            {% assign titleTag = include.title_tag | default: h2 %}
+            {% capture titleElement %}
+                <{{ titleTag }}>{{ title }}</{{ titleTag }}>
+            {% endcapture %}
+        {% endif %}
+
         {% if rootAttributes %}
             {% assign nodes = jekyll_toc | split: '>' %}
-            {% capture jekyll_toc %}<{{ listModifier }}{{ rootAttributes }}>{{ nodes | shift | join: '>' }}>{% endcapture %}
+            {% capture jekyll_toc %}
+                {{ titleElement }}
+                <{{ listModifier }}{{ rootAttributes }}>{{ nodes | shift | join: '>' }}>
+            {% endcapture %}
         {% endif %}
     {% endif %}
 {% endcapture %}{% assign tocWorkspace = '' %}{{ deprecation_warnings }}{{ jekyll_toc -}}

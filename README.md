@@ -63,6 +63,8 @@ This snippet is highly customizable. Here are the available parameters to change
 | `base_url`      | string | ''     | add a base url to the TOC links for when your TOC is on another page than the actual content |
 | `anchor_class`  | string | ''     | add custom class(es) for each anchor element |
 | `skip_no_ids`   | bool   | false  | skip headers that do not have an `id` attribute |
+| `title`         | string | ''     | add a title above the table of contents |
+| `title_tag`     | string | 'h2'   | the HTML tag to use for the title |  
 
 <sup>*</sup> This is a required parameter
 
